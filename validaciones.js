@@ -25,11 +25,11 @@ const validateSelect = (select) => {
   return true
 }
 
-const validateText = (name) => {
+const validateName = (name) => {
   if(!name) return false;
-  let lengthValid = name.trim().length <=200 && name.trim().length >=3;
+  //let lengthValid = name.trim().length >= 3;
   
-  return lengthValid;
+  return true;
 }
 
 const validateEmail = (email) => {
@@ -52,6 +52,9 @@ const validateForm = () => {
   let sector = myForm["sector"].value;
   let nombre = myForm["nombre"].value;
   let email  = myForm["email"].value;
+  let phone  = myForm["phone"].value;
+  let pet  = myForm["select-mascota"].value;
+  let time  = myForm["select-edad"].value;
 
 
   // variables auxiliares de validación y función.
@@ -72,11 +75,21 @@ const validateForm = () => {
   if (!validateSector(sector)) {
     setInvalidInput("Sector");
   }
-  if (!validateName(nombre)) {
+   if (!validateName(nombre)) {
     setInvalidInput("Nombre");
   }
+
   if (!validateEmail(email)) {
     setInvalidInput("Email");
+  }
+  if (!validatePhone(phone)) {
+    setInvalidInput("Número de Celular");
+  }
+  if (!validateSelect(pet)) {
+    setInvalidInput("Tipo");
+  }
+  if (!validateSelect(time)) {
+    setInvalidInput("Unidad medidad edad");
   }
 
 

@@ -1,43 +1,47 @@
-const social_media = ["X", "Instagram", "Telegram", "Whatsapp", "Tiktok"]
-const pets = ["Gato", "Perro"]
-const time = ["Meses", "Años"]
+const social_media = ["X", "Instagram", "Telegram", "Whatsapp", "Tiktok", "Tumblr"]
 
-const poblarRegiones = () => {
-  let regionSelect = document.getElementById("select-region");
-  region_comuna.regiones.forEach(region => {
+
+const poblarSocialMedia = () => {
+  let departmentSelect = document.getElementById("select-department");
+  for (const department in data) {
       let option = document.createElement("option");
-      option.value = region.numero;
-      option.textContent = region.nombre;
-      regionSelect.appendChild(option);
-    });
+      option.value = department;
+      option.text = department;
+      departmentSelect.appendChild(option);
+  }
 };
 
-const updateComunas = () => {
-  let regionSelect = document.getElementById("select-region");
-  let comunaSelect = document.getElementById("select-comuna");
-  let selectedRegion = regionSelect.value;
-
+const updateCursos = () => {
+  let departmentSelect = document.getElementById("select-department");
+  let courseSelect = document.getElementById("select-course");
+  let selectedDepartment = departmentSelect.value;
   
-  comunaSelect.innerHTML = '<option value="">Seleccione una comuna</option>';
+  courseSelect.innerHTML = '<option value="">Seleccione un ramo</option>';
   
-  if (!selectedRegion) return; // si no eligieron nada, se queda vacío
-
-  const region = region_comuna.regiones.find(r => r.numero == selectedRegion);
-  if (region) {
-      region.comunas.forEach(comuna => {
-        let option = document.createElement("option");
-        option.value = comuna.id;
-        option.textContent = comuna.nombre;
-        comunaSelect.appendChild(option);
+  if (data[selectedDepartment]) {
+      data[selectedDepartment].forEach(course => {
+          let option = document.createElement("option");
+          option.value = course;
+          option.text = course;
+          courseSelect.appendChild(option);
       });
-    }
+  }
+  changeArguments();
 };
 
-document.getElementById("select-region").addEventListener("change", updateComunas);
+//what adds a text box
 
+function changeArguments() {
+  const courseSelect = document.getElementById("select-course");
+  const reasonLabel = document.querySelector("label[for='reason']");
+  const reasonTextarea = document.getElementById("comments");
+  
+  if (courseSelect.value !== "") {
+      reasonLabel.style.display = "block";
+      reasonTextarea.style.display = "block";
+  } else {
+      reasonLabel.style.display = "none";
+      reasonTextarea.style.display = "none";
+  }
+}
 
-window.onload = () => {
-  poblarRegiones();
-  updateComunas();
-
-};

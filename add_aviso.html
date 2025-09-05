@@ -49,12 +49,17 @@
             <select name="select-medio" id="select-medio">
                 <option value="">Seleccione</option>
             </select><br>
-            <!-- Falta agregar lo del campo de texto-->
+
+            <label for="ID_URL" style="display: none;">ID o URL</label>
+            <input type="text" name="nombre" id="nombre" minlength="4" maxlength="50" style="display: none;" ><br>
+     
             <h2 id="where">¿Qué mascota ofrece en adopción?</h2>
 
             <label for="select-mascota">Tipo</label>
             <select name="select-mascota" id="select-mascota" required>
                 <option value="">Seleccione uno</option>
+                <option value="gato">Gato</option>
+                <option value="perro">Perro</option>
 
             </select><br>
 
@@ -67,9 +72,11 @@
             <label for="select-edad">Unidad medida edad</label>
             <select name="select-edad" id="select-edad" required>
                 <option value="">Seleccione una</option>
+                <option value="meses">Meses</option>
+                <option value="años">Años</option>
             </select><br>
 
-            <label for="files">Pictures</label>
+            <label for="files">Imagenes</label>
             <input type="file" name="files" id="files" multiple accept="image/*,.pdf" required><br>
 
             <label for="reason" style="display: none;">Argumentos</label>
