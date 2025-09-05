@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Statistics</title>
-    <link rel="stylesheet" type="text/css" href="./styles.css" >
+    <link rel="stylesheet" type="text/css" href="./new_styles.css" >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap" rel="stylesheet">
@@ -13,10 +13,76 @@
     <div class="menu">
         <h1>Nuevo aviso de adopción</h1>
     </div>
-    
+    <div class="main-container">
+        <div id="val-box" hidden>
+            <h2 id="val-msg"></h2>
+            <ul id="val-list"></ul>
+        </div>
+        <form name="myForm" method="post" enctype="multipart/form-data">
+
+            <h2 id="where">¿Dónde?</h2>
+            <label for="select-region">Región</label>
+            <select name="select-region" id="select-region" required>
+                <option value="">Seleccione una Región</option>
+            </select><br>
+
+            <label for="select-comuna">Comuna</label>
+            <select name="select-comuna" id="select-comuna" required>
+                <option value="">Seleccione una Comuna</option>
+            </select><br>
+
+            <label for="sector">Sector</label>
+            <input type="text" name="sector" id="sector" maxlength="100"><br>
+
+            <h2 id="Contact">¿Contacto de esta publicación?</h2>
+
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre" minlength="3" maxlength="200" required><br>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" maxlength="100" required><br>
+
+            <label for="phone">Número de celular</label>
+            <input type="tel" name="phone" id="phone" minlength="12"><br>
+
+            <label for="select-medio">Contactar por</label>
+            <select name="select-medio" id="select-medio">
+                <option value="">Seleccione</option>
+            </select><br>
+            <!-- Falta agregar lo del campo de texto-->
+            <h2 id="where">¿Qué mascota ofrece en adopción?</h2>
+
+            <label for="select-mascota">Tipo</label>
+            <select name="select-mascota" id="select-mascota" required>
+                <option value="">Seleccione uno</option>
+
+            </select><br>
+
+            <label for="cantidad">Cantidad</label>
+            <input type="number" name="cantidad" id="cantidad" min="1" step="1" required><br>
+
+            <label for="edad">Edad</label>
+            <input type="number" name="edad" id="edad" min="1" step="1"required><br>
+
+            <label for="select-edad">Unidad medida edad</label>
+            <select name="select-edad" id="select-edad" required>
+                <option value="">Seleccione una</option>
+            </select><br>
+
+            <label for="files">Pictures</label>
+            <input type="file" name="files" id="files" multiple accept="image/*,.pdf" required><br>
+
+            <label for="reason" style="display: none;">Argumentos</label>
+            <textarea name="comments" id="comments" rows="4" cols="50" style="display: none;"></textarea><br>
+            
+            <button id="submit-btn" type="button">Agregar este aviso de adopción</button>
+        </form>
+    </div>
 
     <div class="low_button">
-        <a id="home-btn" href="./bienvenida.html">Volver al Inicio </a>
+        <a id="home-btn" href="./bienvenida.html" hidden>Volver al Inicio </a>
     </div>
+    <script src="./region_comuna.js"></script>
+    <script src="./validaciones.js"></script>
 </body>
 </html>

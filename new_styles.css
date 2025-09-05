@@ -1,0 +1,251 @@
+:root {
+  --black-color: #000022;
+  --background-color: #eabe7c;
+  --pink-color: #FC2865;
+  --button-color: #fde3bd;
+  --card-bg: #fff;
+  --text-color: #333;
+}
+
+/* Base */
+body {
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
+}
+
+/* Optional page container to control overall width/layout */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+/* ===== Shared patterns (no SCSS) ===== */
+
+/* Card look reused by sections */
+.menu,
+.avisos,
+.main-container {
+  background: var(--card-bg);
+  border: .2em solid var(--black-color);
+  border-radius: .25em;
+  box-shadow: .3em .3em 0 0 var(--black-color);
+}
+
+/* Common flex containers */
+.menu,
+.avisos,
+.low_button,
+.graphs {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Shared typography */
+.menu > *,
+.avisos > *,
+.low_button > * {
+  color: var(--black-color);
+  font-family: "Roboto", sans-serif;
+}
+
+/* Shared button/link styling */
+.menu a,
+.low_button a {
+  position: relative;
+  background-color: var(--button-color);
+  text-decoration: none;
+  margin: 0.25em 1em;
+  padding: .25em .75em;
+  font-weight: 600;
+  font-size: 1rem;
+  border: .2em solid var(--black-color);
+  box-shadow: .175em .175em 0 0 black;
+  border-radius: .3em;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.menu a:hover,
+.low_button a:hover {
+  background-color: var(--pink-color);
+  color: white;
+}
+
+/* ===== Menu ===== */
+.menu {
+  justify-content: flex-end;
+  margin: 2em 2em 1em 1em;
+}
+.menu h1 {
+  font-family: "Fira Code", monospace;
+  margin: .5em;
+  margin-right: auto;
+}
+
+/* ===== Avisos (table of posts) ===== */
+.avisos {
+  justify-content: flex-start;
+  margin: 1em;
+  padding: 1em;
+  box-shadow: .2em .2em 0 0 var(--black-color); /* slightly smaller than menu */
+}
+.avisos h3 {
+  font-family: "Fira Code", monospace;
+  margin: 0 auto 1rem;
+}
+.avisos table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.avisos th,
+.avisos td {
+  border: 3px solid var(--black-color);
+  padding: 4px;
+  text-align: center;
+}
+.avisos th {
+  background-color: var(--button-color);
+  font-weight: bold;
+}
+.avisos img {
+  max-width: 100%;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+/* ===== Low Buttons ===== */
+.low_button {
+  justify-content: flex-end;
+  margin: 1em;
+}
+
+/* ===== Graphs ===== */
+.graphs {
+  justify-content: center;
+  margin: 1em;
+}
+.graphs img {
+  max-width: 100%;
+  height: auto;
+  margin: 1em;
+  padding: .25em;
+  border: .2em solid var(--black-color);
+  background-color: var(--button-color);
+}
+
+/* ===== Form (improved main container) ===== */
+.main-container {
+  /* acts as a card by shared rules above */
+  max-width: 640px;         /* wider, more comfortable */
+  width: 100%;
+  margin: 2em auto;         /* centered on page */
+  padding: 1.25rem;         /* inner spacing */
+  display: block;           /* was flex; simpler for forms */
+}
+
+/* labels & inputs */
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+/* Note: input[type="nombre"] is not a valid type; using text covers it */
+input[type="email"],
+input[type="text"],
+input[type="file"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: var(--text-color);
+}
+select {
+  cursor: pointer;
+  appearance: none;
+  padding-right: 30px;
+}
+input[type="file"] {
+  padding: 5px 8px;
+}
+
+/* Submit button shares button look but full width */
+button#submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--background-color);
+  color: white;
+  border: .2em solid var(--black-color);
+  border-radius: .3em;
+  box-shadow: .175em .175em 0 0 black;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+button#submit-btn:hover {
+  background-color: var(--pink-color);
+  
+}
+
+button {
+
+  padding: 10px;
+  background-color: var(--background-color);
+  color: white;
+  border: .2em solid var(--black-color);
+  border-radius: .3em;
+  box-shadow: .175em .175em 0 0 black;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+button:hover {
+  background-color: var(--black-color);
+  
+}
+
+
+
+/* Validation box */
+#val-box {
+  background-color: #ffdddd;
+  border-left: 6px solid #f44336;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 4px;
+}
+#val-box h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+#val-list {
+  padding-left: 20px;
+  margin: 0;
+  list-style-type: disc;
+  color: #a94442;
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 768px) {
+  .page { padding: .75rem; }
+  .menu { margin: 1rem; }
+  .avisos table { width: 100%; }
+}
+@media (max-width: 480px) {
+  .main-container { padding: 1rem; }
+  button#submit-btn { padding: 8px; font-size: 14px; }
+}

@@ -14,3 +14,5 @@ Esta tarea incluye la implementación de distintas páginas HTML con CSS que con
 ## Decisiones tomadas
 - Se utilizo una sola página de estilo por comodidad.
 - Se siguio el ejemplo mostrado en auxiliares para el CSS.
+- Para el formato de celular se utiliza `+NNN.NNNNNNNN`
+- Las alertas por fallo de validación aparecer sobre el formulario de adopción. 
