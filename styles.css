@@ -20,7 +20,7 @@ body {
     background: white;
     border: .2em solid var(--black-color);
     border-radius: .25em;
-    margin: 2em 2em 2em 2em;
+    margin: 2em 2em 1em 1em;
     box-shadow: .3em .3em 0px 0px black;
 }
 
@@ -91,7 +91,10 @@ body {
 
 .avisos img {
       max-width: 100%; 
-      height: auto;    
+      height: 100px; 
+      width: 100px; 
+      object-fit: cover;  
+     
     }
 
 /*Low Buttons*/
