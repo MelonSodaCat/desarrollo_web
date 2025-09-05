@@ -6,6 +6,7 @@ Esta tarea incluye la implementación de distintas páginas HTML con CSS que con
 - `bienvenida.html` corresponde a la página princial o portada.
 - `estadisticas.html` corresponde a la página con los gráficos.
 - `ver_listado.html` corresponde a la página para visualizar los avisos de adopciones completas.
+- `imgs` es la carpeta con las imagenes utilizadas.
 
 
 
