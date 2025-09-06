@@ -67,6 +67,34 @@ let region_comuna = {
     ]
 };
 
+const social_media = ["X", "Instagram", "Telegram", "Whatsapp", "Tiktok", "Tumblr"]
+
+const poblarSocialMedia = () => {
+  let mediaSelect = document.getElementById("select-medio");
+  for (const social of social_media) {
+      let option = document.createElement("option");
+      option.value = social;
+      option.text = social;
+      mediaSelect.appendChild(option);
+  }
+   addSocialUrlID();
+};
+
+function addSocialUrlID() {
+  const medioSelect = document.getElementById("select-medio");
+  const idurlLabel = document.querySelector("label[for='ID_URL']");
+  const idurlInput = document.getElementById("id_url");
+  
+  if (medioSelect.value !== "") {
+      idurlLabel.style.display = "block";
+      idurlInput.style.display = "block";
+  } else {
+      idurlLabel.style.display = "none";
+      idurlInput.style.display = "none";
+  }
+}
+
+
 
 const poblarRegiones = () => {
   let regionSelect = document.getElementById("select-region");
@@ -99,11 +127,40 @@ const updateComunas = () => {
     }
 };
 
-document.getElementById("select-region").addEventListener("change", updateComunas);
+function formatDateTimeLocal(date) {
+    const pad = (n) => String(n).padStart(2, '0');
 
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1); // months are 0-indexed
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+
+  /**
+   * Prefill the datetime-local input with current time + 3 hours
+   */
+  function llenarFechaEntrega() {
+    const startInput = document.getElementById("fecha-entrega");
+    if (!startInput) return;
+
+    const now = new Date();
+    now.setHours(now.getHours() + 3); // add 3 hours
+    
+
+    startInput.value = formatDateTimeLocal(now);
+  }
+
+
+document.getElementById("select-region").addEventListener("change", updateComunas);
+document.getElementById("select-medio").addEventListener("change", addSocialUrlID);
 
 window.onload = () => {
   poblarRegiones();
+  poblarSocialMedia();
   updateComunas();
+  llenarFechaEntrega();
 
 };

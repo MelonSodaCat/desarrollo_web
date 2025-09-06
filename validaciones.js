@@ -1,3 +1,8 @@
+//current date + 3
+const currDate = new Date();
+currDate.setHours(currDate.getHours() + 3);
+
+
 //Es opcional
 
 const validateSector = (sector) => {
@@ -25,11 +30,20 @@ const validateSelect = (select) => {
   return true
 }
 
+const validateNumber = (number) => {
+  if(!number) return false;
+  let num = Number(number);
+  if(isNaN(num)) return false;
+  
+  valid = Number.isInteger(num) && num >= 1;
+  return valid
+}
+
 const validateName = (name) => {
   if(!name) return false;
-  //let lengthValid = name.trim().length >= 3;
+  let lengthValid = name.trim().length >= 3 && name.trim().length <= 200;
   
-  return true;
+  return lengthValid;
 }
 
 const validateEmail = (email) => {
@@ -44,6 +58,34 @@ const validateEmail = (email) => {
   return lengthValid && formatValid;
 };
 
+const validateFiles = (files) => {
+  if (!files) return false;
+
+  // validación del número de archivos
+  let lengthValid = 1 <= files.length && files.length <= 5;
+
+  // validación del tipo de archivo
+  let typeValid = true;
+
+  for (const file of files) {
+    // el tipo de archivo debe ser "image/<foo>"
+    let fileFamily = file.type.split("/")[0];
+    typeValid &&= fileFamily == "image" || file.type == "application/pdf";
+  }
+
+  // devolvemos la lógica AND de las validaciones.
+  return lengthValid && typeValid;
+};
+
+const validateDate = (date) => {
+  if (!date) return false;
+  let re = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
+  let formatValid = re.test(date);
+  const inputDate = new Date(date);
+  let dateValid = inputDate >= currDate;
+  return formatValid && dateValid
+};
+
 const validateForm = () => {
   // obtener elementos del DOM usando el nombre del formulario.
   let myForm = document.forms["myForm"];
@@ -54,7 +96,11 @@ const validateForm = () => {
   let email  = myForm["email"].value;
   let phone  = myForm["phone"].value;
   let pet  = myForm["select-mascota"].value;
+  let cta = myForm["cantidad"].value;
+  let edad = myForm["edad"].value;
   let time  = myForm["select-edad"].value;
+  let date = myForm["fecha-entrega"].value;
+  let files  = myForm["files"].files;
 
 
   // variables auxiliares de validación y función.
@@ -91,6 +137,24 @@ const validateForm = () => {
   if (!validateSelect(time)) {
     setInvalidInput("Unidad medidad edad");
   }
+
+  if (!validateNumber(cta)) {
+    setInvalidInput("Cantidad");
+  }
+
+  if (!validateNumber(edad)) {
+    setInvalidInput("Edad");
+  }
+
+  if (!validateFiles(files)) {
+    setInvalidInput("Fotos");
+  }
+  if (!validateDate(date)) {
+    setInvalidInput("Fecha Disponible para entrega");
+  }
+
+
+
 
 
 

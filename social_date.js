@@ -2,7 +2,7 @@ const social_media = ["X", "Instagram", "Telegram", "Whatsapp", "Tiktok", "Tumbl
 
 
 const poblarSocialMedia = () => {
-  let departmentSelect = document.getElementById("select-department");
+  let departmentSelect = document.getElementById("select-medio");
   for (const department in data) {
       let option = document.createElement("option");
       option.value = department;
