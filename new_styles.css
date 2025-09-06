@@ -163,6 +163,7 @@ input[type="email"],
 input[type="text"],
 input[type="file"],
 input[type="tel"],
+input[type="number"],
 select {
   width: 100%;
   padding: 8px;
@@ -195,6 +196,7 @@ button#submit-btn {
   font-size: 16px;
   cursor: pointer;
   transition: background .2s ease;
+  margin-top: 1em;
 }
 button#submit-btn:hover {
   background-color: var(--pink-color);
@@ -249,3 +251,104 @@ button:hover {
   .main-container { padding: 1rem; }
   button#submit-btn { padding: 8px; font-size: 14px; }
 }
+
+/* Modal background */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  text-align: left;
+  position: relative;
+}
+
+
+/* Image styling */
+.modal-content img {
+  width: 320px;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+  margin-top: 10px;
+  align-items: center;
+}
+
+/* Large image modal overlay */
+#image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6); /* dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#image-modal .modal-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-wrapper {
+  width: 800px;   /* fixed image box */
+  height: 600px;
+  background-color: #fff; /* background behind the image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 10px; /* optional: extra space around image */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#image-modal img {
+  width: 800px;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+#close-image-modal {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 28px;
+  cursor: pointer;
+  background: var(--background-color);
+  border-radius: 50%;
+  padding: 2px 8px;
+  z-index: 1;
+}
+
+/* Responsive scaling */
+@media (max-width: 850px) {
+  .image-wrapper {
+    width: 90%;
+    height: auto;
+  }
+  #image-modal img {
+    width: 100%;
+    height: auto;
+  }
+}
+
