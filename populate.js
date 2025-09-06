@@ -77,21 +77,34 @@ const poblarSocialMedia = () => {
       option.text = social;
       mediaSelect.appendChild(option);
   }
-   addSocialUrlID();
 };
 
 function addSocialUrlID() {
   const medioSelect = document.getElementById("select-medio");
-  const idurlLabel = document.querySelector("label[for='ID_URL']");
-  const idurlInput = document.getElementById("id_url");
-  
-  if (medioSelect.value !== "") {
-      idurlLabel.style.display = "block";
-      idurlInput.style.display = "block";
-  } else {
-      idurlLabel.style.display = "none";
-      idurlInput.style.display = "none";
-  }
+  const idurlInput = document.getElementById("id_url_container");
+
+
+  idurlInput.innerHTML = "";
+
+  const selectedValues = Array.from(medioSelect.selectedOptions).map(opt => opt.value);
+
+  selectedValues.forEach(value => {
+    const label = document.createElement("label");
+    label.innerText = `URL/ID para ${value}:`;
+    label.setAttribute("for", `input-${value}`);
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = `input-${value}`;
+    input.name = `input-${value}`;
+    input.minLength = 4;
+    input.maxLength = 50;
+    input.style.display = "block";
+    input.style.marginBottom = "10px";
+
+    idurlInput.appendChild(label);
+    idurlInput.appendChild(input);
+  });
 }
 
 

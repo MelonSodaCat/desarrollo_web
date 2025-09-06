@@ -21,6 +21,21 @@ const validatePhone = (phone) => {
   return lengthValid && formatValid;
 }
 
+const validateSocialMedia = (socialMediaSelect) => {
+  const socialMedia = Array.from(socialMediaSelect.selectedOptions).map(opt => opt.value);
+
+  if (socialMedia.length > 5) return false;
+  for (const value of socialMedia) {
+    const input = document.getElementById(`input-${value}`);
+    if(!input) return false;
+    const url_id = input.value.trim();
+    if(url_id.length < 4 || url_id.length > 50) return false;
+
+  }
+  return true;
+
+
+}
 
 
 
@@ -101,6 +116,7 @@ const validateForm = () => {
   let time  = myForm["select-edad"].value;
   let date = myForm["fecha-entrega"].value;
   let files  = myForm["files"].files;
+  let socialMedia = myForm["select-medio"];
 
 
   // variables auxiliares de validación y función.
@@ -124,6 +140,9 @@ const validateForm = () => {
    if (!validateName(nombre)) {
     setInvalidInput("Nombre");
   }
+  if (!validateSocialMedia(socialMedia)) {
+    setInvalidInput("Contacto por");
+  }
 
   if (!validateEmail(email)) {
     setInvalidInput("Email");
@@ -131,6 +150,7 @@ const validateForm = () => {
   if (!validatePhone(phone)) {
     setInvalidInput("Número de Celular");
   }
+
   if (!validateSelect(pet)) {
     setInvalidInput("Tipo");
   }
