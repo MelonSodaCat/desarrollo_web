@@ -1,4 +1,5 @@
 # Tarea 1 - Desarrollo Web
+## Por Antonia G. Calvo
    
 ## Descripción
 Esta tarea incluye la implementación de distintas páginas HTML con CSS que contempla un sitio de adopciones.
