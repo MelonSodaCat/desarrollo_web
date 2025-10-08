@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Bienvenida {% endblock %}
+
+{% block menu %}
+<h1> Bienvenid@ a Adoptando Patitas!</h1>
+<a id="add-aviso-btn" href="{{ url_for('add_aviso') }}">Agregar aviso de adopción </a>
+<a id="listado-btn" href="{{ url_for('ver_listado') }}">Ver listado de avisos</a>
+<a id="estadisticas-btn" href="{{ url_for('estadisticas') }}">Estadísticas</a>
+{% endblock %}
+
+{% block content %}
+<div class="avisos">
+        <h3>Últimos Avisos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha publicación</th>
+                    <th>Comuna</th>
+                    <th>Sector</th>
+                    <th>Cantidad Tipo Edad</th>
+                    <th>Foto</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if data %}
+            {% for aviso in data %}
+            <tr>
+                <td>{{ aviso.fecha_publicacion }}</td>
+                <td>{{ aviso.comuna }}</td>
+                <td>{{ aviso.sector }}</td>
+                <td>{{ aviso.cantidad }} {{ aviso.tipo }} {{ aviso.edad }} {{ aviso.unidad_medida }}</td>
+                <td><img src="{{ url_for('static', filename=aviso.foto_path) }}" alt="{{aviso.foto_nombre}}"></td>
+               
+
+            </tr>
+            {% endfor%}
+        {% endif %}
+    </tbody>
+
+{% endblock %}
