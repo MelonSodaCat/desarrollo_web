@@ -2,7 +2,7 @@
 ## Por Antonia G. Calvo
    
 ## Descripción
-Esta tarea incluye la implementación de una aplicaciónn de flask para un sitio de adopciones.
+Esta tarea incluye la implementación de una aplicaciónn de flask para un sitio de adopciones en la carpeta flask_app.
 
  ```bash
 flask_app
