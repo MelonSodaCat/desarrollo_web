@@ -9,7 +9,7 @@ import uuid
 
 UPLOAD_FOLDER = 'static/imgs'
 
-
+#---necesaria para los mensajes de flash
 app = Flask(__name__)
 app.secret_key = "secret_key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -38,8 +38,7 @@ def ver_listado():
         foto_path = f"imgs/{foto.ruta_archivo}"
         contacto_redes_sociales=db.get_contacto_by_aviso_id(aviso.id)
         redes_sociales = [{"red_social": r.nombre, "id": r.identificador} for r in contacto_redes_sociales]
-        print(redes_sociales)
-
+        #----datos del aviso
         data.append({
             "fecha_publicacion": aviso.fecha_ingreso,
             "fecha_entrega": aviso.fecha_entrega,
@@ -60,6 +59,7 @@ def ver_listado():
           
         })
         total_avisos = db.count_avisos()
+        #paginación
         total_pages = (total_avisos + PAGE_SIZE - 1) // PAGE_SIZE
     return render_template("ver_listado.html", data=data, page=page, total_pages=total_pages)
 
@@ -97,7 +97,7 @@ def post_aviso():
         # 2. save img as a file
         files.save(os.path.join(app.config["UPLOAD_FOLDER"], img_filename))
 
-        # 3. save confession in db
+        # 3. save in db
         
         id_aviso=db.create_aviso(comuna_id, sector, nombre, mail, phone, tipo, int(cantidad), int(edad), unidad_medida, fecha_entrega, desc)
         db.create_foto(img_filename, img_filename, id_aviso)

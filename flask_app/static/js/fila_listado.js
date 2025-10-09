@@ -14,7 +14,7 @@ for (let i = 0; i < tableBody.rows.length; i++) {
         const cells = row.cells;
 
         if (cells.length === 0) return;
-
+        //datos del modal
         modalDetails.innerHTML = `
             <p><strong>Fecha publicación:</strong> ${cells[0].innerText}</p>
             <p><strong>Fecha entrega:</strong> ${cells[1].innerText}</p>
@@ -29,9 +29,9 @@ for (let i = 0; i < tableBody.rows.length; i++) {
                  alt="${cells[6].querySelector("img").alt}" style="cursor:pointer;">
         `;
 
-        const redesTd = cells[7]; // last hidden TD
+        const redesTd = cells[7]; //escondido
         const redesRaw = redesTd ? redesTd.innerText : "";
-        const redesArray = redesRaw.split("|").filter(s => s); // remove empty strings
+        const redesArray = redesRaw.split("|").filter(s => s); 
 
         redesArray.forEach(item => {
           
@@ -53,12 +53,12 @@ for (let i = 0; i < tableBody.rows.length; i++) {
     });
 }
 
-// Close row modal
+
 closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
-// Close image modal
+
 closeImageBtn.addEventListener("click", () => {
     imageModal.style.display = "none";
 });
