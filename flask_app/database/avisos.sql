@@ -5,7 +5,7 @@
 INSERT INTO tarea2.aviso_adopcion
 (id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
 VALUES
-(1, '2025-09-01 12:00:00', 130210, 'Metro Irarrázaval', 'Alisa Fuentes', 'alisa.fuentes@example.com', NULL, 'gato', 2, 2, 'm', '2025-09-04 12:00:00', 'Dos gatos de 2 meses encontrados cerca del Metro Irarrázaval, Ñuñoa.');
+(1, '2025-09-01 12:00:00', 130210, 'Metro Irarrázaval', 'Alisa Fuentes', 'alisa.fuentes@example.com', '+569.63041558', 'gato', 2, 2, 'm', '2025-09-04 12:00:00', 'Dos gatos de 2 meses encontrados cerca del Metro Irarrázaval, Ñuñoa.');
 
 INSERT INTO tarea2.aviso_adopcion
 (id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
@@ -34,20 +34,26 @@ VALUES
 
 --- Insercion de Fotos
 
-INSERT INTO foto (id, ruta_archivo, nombre_archivo, actividad_id)
+INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
 VALUES (1, 'twocats.jpg', 'dosgatos_2meses', 1);
 
-INSERT INTO foto (id, ruta_archivo, nombre_archivo, actividad_id)
+INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
 VALUES (2, 'nala.jpg', '1gato_6meses', 2);
 
-INSERT INTO foto (id, ruta_archivo, nombre_archivo, actividad_id)
+INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
 VALUES (3, 'blackcat.jpg', '1gato_3meses', 3);
 
-INSERT INTO foto (id, ruta_archivo, nombre_archivo, actividad_id)
+INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
 VALUES (4, 'pomeranian.JPG', '1perro_6meses', 4);
 
-INSERT INTO foto (id, ruta_archivo, nombre_archivo, actividad_id)
+INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
 VALUES (5, 'twodogs.JPG', '2perros_5meses', 5);
 
-INSERT INTO foto (id, ruta_archivo, nombre_archivo, actividad_id)
+INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
 VALUES (6, 'twodogs.JPG', '2perros_5meses', 6);
+
+--- Inserción contactos
+INSERT INTO contactar_por (id, nombre, identificador, aviso_id)
+VALUES (1, 'whatsapp', 'CreamSodaMeow', 6) ;
+INSERT INTO contactar_por (id, nombre, identificador, aviso_id)
+VALUES (2, "otra", 'Ramune Meow', 6);

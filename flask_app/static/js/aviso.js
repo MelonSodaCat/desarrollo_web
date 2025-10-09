@@ -41,22 +41,25 @@ function addSocialUrlID() {
 
 
 const updateComunas = () => { 
-    
-    const regionSelect = document.getElementById('select-region');
-    const comunaSelect = document.getElementById('select-comuna');
-    const allComunas = Array.from(comunaSelect.options); 
-    const selectedRegion = regionSelect.value;
-    
-    // Clear current options
-    comunaSelect.innerHTML = '<option value="">Seleccione una Comuna</option>';
-    
-    // Add filtered comunas
-    allComunas.forEach(opt => {
-        if (opt.dataset.region === selectedRegion) {
-            comunaSelect.appendChild(opt);
-        }
-    });
-    comunaSelect.value = '';
+  const regionSelect = document.getElementById('select-region');
+  const comunaSelect = document.getElementById('select-comuna');
+
+
+  if (!updateComunas.allComunas) {
+    updateComunas.allComunas = Array.from(comunaSelect.options);
+  }
+
+  const allComunas = updateComunas.allComunas;
+  const selectedRegion = regionSelect.value;
+
+  comunaSelect.innerHTML = '<option value="">Seleccione una Comuna</option>';
+
+ 
+  allComunas.forEach(opt => {
+    if (opt.dataset.region === selectedRegion) {
+      comunaSelect.appendChild(opt.cloneNode(true));
+    }
+  });
 };
 
 function formatDateTimeLocal(date) {

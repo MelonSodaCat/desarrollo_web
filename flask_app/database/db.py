@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Enum, Text, desc
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 import json
+from datetime import datetime
 
 DB_NAME = "tarea2"
 DB_USERNAME = "cc5002"
@@ -63,7 +64,7 @@ class Foto(Base):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     ruta_archivo = Column(String(300), nullable=False)
     nombre_archivo = Column(String(300), nullable=False)
-    actividad_id = Column(Integer, ForeignKey('tarea2.aviso_adopcion.id'), nullable=False)
+    aviso_id = Column(Integer, ForeignKey('tarea2.aviso_adopcion.id'), nullable=False)
 
     aviso_adopcion = relationship("Aviso_Adopcion", back_populates="foto")
 
@@ -73,20 +74,25 @@ class Contactar_Por(Base):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     nombre = Column(Enum('whatsapp', 'telegram', 'X', 'instagram', 'tiktok', 'otra'), nullable=False)
     identificador = Column(String(150), nullable=False)
-    actividad_id = Column(Integer, ForeignKey('tarea2.aviso_adopcion.id'), nullable=False)
+    aviso_id = Column(Integer, ForeignKey('tarea2.aviso_adopcion.id'), nullable=False)
 
     aviso_adopcion = relationship("Aviso_Adopcion", back_populates="contactar_por")
 
 
-print(Base.metadata.tables.keys())
-
 # --- Database Functions ---
 
-def get_avisos(page_size):
+def get_avisos(page=1, page_size=5):
     session = SessionLocal()
-    avisos = session.query(Aviso_Adopcion).order_by(desc(Aviso_Adopcion.fecha_ingreso)).limit(page_size).all()
+    offset = (page - 1)*page_size
+    avisos = session.query(Aviso_Adopcion).order_by(desc(Aviso_Adopcion.fecha_ingreso)).offset(offset).limit(page_size).all()
     session.close()
     return avisos
+
+def count_avisos():
+    session = SessionLocal()
+    total = session.query(Aviso_Adopcion).count()
+    session.close()
+    return total
 
 def get_comunas():
     session = SessionLocal()
@@ -102,15 +108,48 @@ def get_regiones():
 
 def get_comuna_by_id(id):
     session = SessionLocal()
-    confesiones = session.query(Comuna).filter_by(id=id).first()
+    comuna = session.query(Comuna).filter_by(id=id).first()
     session.close()
-    return confesiones
+    return comuna
 
-def get_foto_by_actv_id(id):
+def get_region_by_id(id):
+    session = SessionLocal()
+    region = session.query(Region).filter_by(id=id).first()
+    session.close()
+    return region
+
+def get_foto_by_aviso_id(id):
     session = SessionLocal()
     confesiones = session.query(Foto).filter_by(id=id).first()
     session.close()
     return confesiones
+
+def get_contacto_by_aviso_id(id):
+    session = SessionLocal()
+    redes_sociales = session.query(Contactar_Por).filter_by(aviso_id=id).all()
+    session.close()
+    return redes_sociales
+
+def create_aviso(comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion):
+    session = SessionLocal()
+    new_aviso = Aviso_Adopcion(fecha_ingreso=datetime.now(), comuna_id=comuna_id, sector=sector, nombre=nombre, email=email, celular=celular, tipo=tipo, cantidad=cantidad, edad=edad, unidad_medida=unidad_medida, fecha_entrega=fecha_entrega, descripcion=descripcion)
+    session.add(new_aviso)
+    session.commit()
+    id = new_aviso.id
+    print(id)
+    session.close()
+    return id
+
+
+def create_foto(ruta_archivo, nombre_archivo, aviso_id):
+    session = SessionLocal()
+    new_foto = Foto(ruta_archivo=ruta_archivo,nombre_archivo=nombre_archivo, aviso_id=aviso_id)
+    session.add(new_foto)
+    session.commit()
+    session.close()
+
+    
+
 
 
 

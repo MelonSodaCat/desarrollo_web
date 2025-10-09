@@ -6,19 +6,28 @@ currDate.setHours(currDate.getHours() + 3);
 //Es opcional
 
 const validateSector = (sector) => {
-  
-  let lengthValid = sector.trim().length <= 100;
-  
-  return lengthValid;
+  let trim = sector.trim()
+  if (trim == ""){
+    return true
+  } else {
+    let lengthValid = trim.length <= 100;
+    return lengthValid;
+  }
 }
 
 const validatePhone = (phone) => {
   
-  let lengthValid = phone.trim().length == 13;
+  let trim = phone.trim()
+
+  if (trim == "") {
+    return true
+  } else {
   let re = /^\+569\.\d{8}$/;
-  let formatValid = re.test(phone);
+  let formatValid = re.test(trim);
+  return  formatValid;
+  }
   
-  return lengthValid && formatValid;
+  
 }
 
 const validateSocialMedia = (socialMediaSelect) => {
@@ -219,12 +228,10 @@ const validateForm = () => {
     submitButton.innerText = "Sí, estoy seguro";
     submitButton.style.marginRight = "10px";
     submitButton.addEventListener("click", () => {
-      // myForm.submit();
-      // no tenemos un backend al cual enviarle los datos
-      let homeButton = document.getElementById("home-btn");
-      validationMessageElem.innerText = "Hemos recibido la información de adopción, muchas gracias y suerte";
+      myForm.submit();
+      validationMessageElem.innerText = "";
       validationListElem.textContent = "";
-      homeButton.hidden=false;
+      
       
     });
 

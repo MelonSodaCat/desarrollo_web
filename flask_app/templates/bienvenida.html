@@ -10,6 +10,19 @@
 {% endblock %}
 
 {% block content %}
+
+{% if messages %}
+<div class="main-container">
+  <div id="messages">
+    {% for category, msg in messages %}
+      <div class="alert alert-{{ category }}">
+        <h2>{{ msg|safe }}</h2>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
 <div class="avisos">
         <h3>Últimos Avisos</h3>
         <table>

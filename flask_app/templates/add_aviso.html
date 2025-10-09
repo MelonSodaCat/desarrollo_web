@@ -8,7 +8,18 @@
             <h2 id="val-msg">""</h2>
             <ul id="val-list"></ul>
         </div>
-        <form name="myForm" action="{{url_for('aviso_conf')}}" method="post" enctype="multipart/form-data">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div id="messages">
+            {% for category, msg in messages %}
+                <div class="alert alert-{{ category }}">
+                   <h2>{{ msg }}</h2> 
+                </div>
+            {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        <form name="myForm" action="{{url_for('post_aviso')}}" method="post" enctype="multipart/form-data">
 
             <h2 id="where">¿Dónde?</h2>
             <label for="select-region">Región</label>
@@ -65,8 +76,8 @@
             <label for="select-edad">Unidad medida edad</label>
             <select name="select-edad" id="select-edad" required>
                 <option value="">Seleccione una</option>
-                <option value="meses">Meses</option>
-                <option value="años">Años</option>
+                <option value="m">Meses</option>
+                <option value="a">Años</option>
             </select><br>
             <label for="fecha-entrega">Fecha disponible para entrega</label>
             <input name="fecha-entrega" id="fecha-entrega" type="datetime-local" >
