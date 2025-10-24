@@ -5,7 +5,7 @@
 INSERT INTO tarea2.aviso_adopcion
 (id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
 VALUES
-(1, '2025-09-01 12:00:00', 130210, 'Metro Irarrázaval', 'Alisa Fuentes', 'alisa.fuentes@example.com', '+569.63041558', 'gato', 2, 2, 'm', '2025-09-04 12:00:00', 'Dos gatos de 2 meses encontrados cerca del Metro Irarrázaval, Ñuñoa.');
+(1, '2025-10-01 12:00:00', 130210, 'Metro Irarrázaval', 'Alisa Fuentes', 'alisa.fuentes@example.com', '+569.63041558', 'gato', 2, 2, 'm', '2025-09-04 12:00:00', 'Dos gatos de 2 meses encontrados cerca del Metro Irarrázaval, Ñuñoa.');
 
 INSERT INTO tarea2.aviso_adopcion
 (id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
@@ -15,12 +15,12 @@ VALUES
 INSERT INTO tarea2.aviso_adopcion
 (id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
 VALUES
-(3, '2025-08-28 08:00:00', 80205, 'Unimarc', 'Josefina Gallardo', 'josefina.gallardo@example.com', NULL, 'gato', 1, 3, 'm', '2025-09-01 10:00:00', 'Gatito negro de 3 meses encontrado en Unimarc, Puerto Aysén.');
+(3, '2025-08-31 08:00:00', 80205, 'Unimarc', 'Josefina Gallardo', 'josefina.gallardo@example.com', NULL, 'gato', 1, 3, 'm', '2025-09-01 10:00:00', 'Gatito negro de 3 meses encontrado en Unimarc, Puerto Aysén.');
 
 INSERT INTO tarea2.aviso_adopcion
 (id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
 VALUES
-(4, '2025-08-01 13:00:00', 80210, 'Supermercado Lider', 'Leon Aranguiz', 'leon.aranguiz@example.com', NULL, 'perro', 1, 6, 'm', '2025-08-28 10:00:00', 'Perro tipo Pomeranian de 6 meses encontrado en Chiguayante, Supermercado Líder.');
+(4, '2025-08-31 13:00:00', 80210, 'Supermercado Lider', 'Leon Aranguiz', 'leon.aranguiz@example.com', NULL, 'perro', 1, 6, 'm', '2025-08-28 10:00:00', 'Perro tipo Pomeranian de 6 meses encontrado en Chiguayante, Supermercado Líder.');
 
 INSERT INTO tarea2.aviso_adopcion
 (id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
@@ -30,7 +30,12 @@ VALUES
 INSERT INTO tarea2.aviso_adopcion
 (id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
 VALUES
-(6, '2025-10-21 14:00:00', 80205, 'Parque Ecuador', 'Camilo Meow', 'camilo.meow@example.com', NULL, 'perro', 2, 5, 'm', '2025-11-29 19:00:00', 'Dos perros de 5 meses vistos en el Parque Ecuador, Concepción.');
+(6, '2025-10-01 14:00:00', 80205, 'Parque Ecuador', 'Camilo Meow', 'camilo.meow@example.com', NULL, 'perro', 2, 5, 'm', '2025-11-29 19:00:00', 'Dos perros de 5 meses vistos en el Parque Ecuador, Concepción.');
+
+INSERT INTO tarea2.aviso_adopcion
+(id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
+VALUES
+(7, '2025-11-01 14:00:00', 80205, 'Parque Ecuador', 'Camilo Meow', 'camilo.meow@example.com', NULL, 'perro', 2, 5, 'm', '2025-11-29 19:00:00', 'Dos perros de 5 meses vistos en el Parque Ecuador, Concepción.');
 
 --- Insercion de Fotos
 
@@ -52,6 +57,8 @@ VALUES (5, 'twodogs.JPG', '2perros_5meses', 5);
 INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
 VALUES (6, 'twodogs.JPG', '2perros_5meses', 6);
 
+INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
+VALUES (7, 'twodogs.JPG', '2perros_5meses', 7);
 --- Inserción contactos
 INSERT INTO contactar_por (id, nombre, identificador, aviso_id)
 VALUES (1, 'whatsapp', 'CreamSodaMeow', 6) ;
