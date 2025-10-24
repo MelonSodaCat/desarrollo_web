@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Enum, Text, desc
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Enum, Text, desc, func
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 import json
 from datetime import datetime
@@ -148,6 +148,60 @@ def create_foto(ruta_archivo, nombre_archivo, aviso_id):
     session.commit()
     session.close()
 
+#----Database functions for Estadisticas
+
+def get_count_avisos_por_día():
+    session = SessionLocal()
+    aviso_por_dia= (
+        session.query(
+            func.date(Aviso_Adopcion.fecha_ingreso).label("fecha"),
+            func.count(Aviso_Adopcion.id).label("count")
+        )
+        .group_by(func.date(Aviso_Adopcion.fecha_ingreso))
+        .all()
+    )
+    session.close()
+    return [{"fecha": fecha, "count": count} for fecha, count in aviso_por_dia] 
+
+def get_count_avisos_por_tipo():
+    session = SessionLocal()
+    aviso_por_tipo= (
+        session.query(
+            Aviso_Adopcion.tipo.label("name"),
+            func.count(Aviso_Adopcion.id).label("y")
+        )
+        .group_by(Aviso_Adopcion.tipo)
+        .all()
+    )
+    session.close()
+    return [{"name": name, "y": y} for name, y in aviso_por_tipo]
+
+def get_count_avisos_por_tipo_y_mes():
+    session = SessionLocal()
+
+    results = (
+        session.query(
+            Aviso_Adopcion.tipo.label("tipo"),
+            func.month(Aviso_Adopcion.fecha_ingreso).label("mes"),
+            func.count(Aviso_Adopcion.id).label("cantidad")
+        )
+        .group_by(Aviso_Adopcion.tipo, func.month(Aviso_Adopcion.fecha_ingreso))
+        .order_by(func.month(Aviso_Adopcion.fecha_ingreso))
+        .all()
+    )
+
+    session.close()
+
+    tipos = {}
+
+    for tipo, mes, cantidad in results:
+        if tipo not in tipos:
+            tipos[tipo] = [0] * 12  # 12 months
+        tipos[tipo][mes - 1] = cantidad  # month index starts at 0
+
+ 
+
+    return [{"name": tipo, "data": data} for tipo, data in tipos.items()]
     
 
 

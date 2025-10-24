@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, session, flash, get_flashed_messages
+from flask import Flask, request, render_template, redirect, url_for, session, flash, get_flashed_messages, jsonify
 from utils.validations import validate_form
 from database import db
 from werkzeug.utils import secure_filename
@@ -6,6 +6,7 @@ import hashlib
 import filetype
 import os
 import uuid
+from flask_cors import cross_origin
 
 UPLOAD_FOLDER = 'static/imgs'
 
@@ -66,6 +67,31 @@ def ver_listado():
 @app.route("/estadisticas", methods=["GET"])
 def estadisticas():
     return render_template("estadisticas.html")
+
+@app.route("/get-stats-line", methods=["GET"])
+@cross_origin(origin="127.0.0.1")
+def get_stats_line():
+    by_day_data=db.get_count_avisos_por_día()
+    by_day_data.sort(key=lambda x: x["fecha"])
+    for row in by_day_data:
+        row["fecha"]=row["fecha"].strftime("%Y-%m-%d")
+    return jsonify(by_day_data)
+
+@app.route("/get-stats-pie", methods=["GET"])
+@cross_origin(origin="127.0.0.1")
+def get_stats_pie():
+    by_type_data=db.get_count_avisos_por_tipo()
+    return jsonify(by_type_data)
+
+@app.route("/get-stats-bar", methods=["GET"])
+@cross_origin(origin="127.0.0.1")
+def get_stats_bar():
+    by_type_month_data=db.get_count_avisos_por_tipo_y_mes()
+    return jsonify(by_type_month_data)
+
+
+
+
 
 @app.route("/post_aviso", methods=["POST"])
 def post_aviso():
