@@ -3,19 +3,28 @@
 
 {% block menu %} <h1> Estadísticas </h1> {% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+<div class="graphs">
+<figure class="highcharts-figure">
+        <div id="container-1"></div>
+</figure>
+<figure class="highcharts-figure">
+  <div id="container-2"></div>
+</figure>
+<figure class="highcharts-figure">
+  <div id="container-3"></div>
+</figure>
 
+</div>
+{% endblock %}
 
+{% block javascript %} 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{ url_for('static', filename='js/stats.js') }}"></script>
+{% endblock %}    
 
-
-    <div class="menu">
-        <h1> Estadísticas</h1>
-    </div>
-    <div class="graphs">
-        <img src="./imgs/grafico_lineas.png" height="300" width="300" alt="Grafico días y avisos">
-        <img src="./imgs/grafico_torta.png" height="250" width="250" alt="Distribucion entre gatos y perros">
-        <img src="./imgs/grafico_barra.png" height="300" width="300" alt="Avisos en meses, por raza">
-        
-    </div>
+</body>
+</html>
+    
     
 
