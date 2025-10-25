@@ -85,7 +85,7 @@ class Comentario(Base):
     __table_args__ = {'schema': 'tarea2'}
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     nombre = Column(String(80), nullable=False)
-    text = Column(String(300), nullable=False)
+    texto = Column(String(300), nullable=False)
     fecha = Column(DateTime, nullable=False)
     aviso_id = Column(Integer, ForeignKey('tarea2.aviso_adopcion.id'), nullable=False)
 
@@ -145,6 +145,12 @@ def get_contacto_by_aviso_id(id):
     session.close()
     return redes_sociales
 
+def get_comentarios_by_aviso_id(id):
+    session = SessionLocal()
+    comentarios = session.query(Comentario).filter_by(aviso_id=id).all()
+    session.close()
+    return comentarios
+
 def create_aviso(comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion):
     session = SessionLocal()
     new_aviso = Aviso_Adopcion(fecha_ingreso=datetime.now(), comuna_id=comuna_id, sector=sector, nombre=nombre, email=email, celular=celular, tipo=tipo, cantidad=cantidad, edad=edad, unidad_medida=unidad_medida, fecha_entrega=fecha_entrega, descripcion=descripcion)
@@ -162,6 +168,8 @@ def create_foto(ruta_archivo, nombre_archivo, aviso_id):
     session.add(new_foto)
     session.commit()
     session.close()
+
+
 
 #----Database functions for Estadisticas
 

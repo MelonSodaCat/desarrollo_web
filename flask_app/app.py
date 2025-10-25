@@ -7,6 +7,7 @@ import filetype
 import os
 import uuid
 from flask_cors import cross_origin
+from markupsafe import escape
 
 UPLOAD_FOLDER = 'static/imgs'
 
@@ -27,6 +28,7 @@ def add_aviso():
     return render_template("add_aviso.html", regiones=regiones, comunas=comunas)
 
 @app.route("/ver_listado", methods=["GET"])
+@cross_origin(origin="127.0.0.1")
 def ver_listado():
     PAGE_SIZE=5
     page = request.args.get("page", 1, type=int)
@@ -41,6 +43,7 @@ def ver_listado():
         redes_sociales = [{"red_social": r.nombre, "id": r.identificador} for r in contacto_redes_sociales]
         #----datos del aviso
         data.append({
+            "id": aviso.id,
             "fecha_publicacion": aviso.fecha_ingreso,
             "fecha_entrega": aviso.fecha_entrega,
             "comuna": comuna.nombre,
@@ -63,6 +66,20 @@ def ver_listado():
         #paginación
         total_pages = (total_avisos + PAGE_SIZE - 1) // PAGE_SIZE
     return render_template("ver_listado.html", data=data, page=page, total_pages=total_pages)
+
+@app.route("/get-comments", methods=["GET"])
+@cross_origin(origin="127.0.0.1")
+def get_comments():
+    aviso_id = request.args.get("avisoId", type=int)
+    comentarios=db.get_comentarios_by_aviso_id(aviso_id)
+    comments_list=[]
+    for comentario in comentarios:
+        comments_list.append({
+            "nombre": escape(comentario.nombre),
+            "comentario": escape(comentario.texto),
+            "fecha": comentario.fecha.strftime("%Y-%m-%d %H:%M:%S")
+        })
+    return jsonify(comments_list)
 
 @app.route("/estadisticas", methods=["GET"])
 def estadisticas():
@@ -98,17 +115,17 @@ def post_aviso():
     #here we get the elements of the form
     region_id = request.form.get("select-region")
     comuna_id = request.form.get("select-comuna")
-    sector = request.files.get("sector")
-    nombre = request.form.get("nombre")
-    mail = request.form.get("email")
+    sector = escape(request.files.get("sector"))
+    nombre = escape(request.form.get("nombre"))
+    mail = escape(request.form.get("email"))
     phone = request.form.get("phone")
     #red_social = request.form.get("select-medio")
-    tipo = request.form.get("select-mascota")
+    tipo = escape(request.form.get("select-mascota"))
     cantidad = request.form.get("cantidad")
     edad = request.form.get("edad")
     unidad_medida = request.form.get("select-edad")
     fecha_entrega = request.form.get("fecha-entrega")
-    desc = request.form.get("comments")
+    desc = escape(request.form.get("comments"))
     files = request.files.get("files")
     validate, error_msg=validate_form(region_id, comuna_id, sector, nombre, mail, phone, tipo, cantidad, edad, unidad_medida, fecha_entrega, desc, files)
 
@@ -149,13 +166,13 @@ def index():
 
         data.append({
             "fecha_publicacion": aviso.fecha_ingreso,
-            "comuna": comuna.nombre,
-            "sector": aviso.sector,
+            "comuna": escape(comuna.nombre),
+            "sector": escape(aviso.sector),
             "cantidad": aviso.cantidad,
-            "tipo": aviso.tipo,
+            "tipo": escape(aviso.tipo),
             "edad": aviso.edad,
-            "unidad_medida": aviso.unidad_medida,
-            "foto_name": foto.nombre_archivo,
+            "unidad_medida": escape(aviso.unidad_medida),
+            "foto_name": escape(foto.nombre_archivo),
             "foto_path": foto_path
           
         })

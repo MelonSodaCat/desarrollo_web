@@ -22,6 +22,7 @@
             {% if data %}
                 {% for aviso in data %}
                 <tr
+                data-id="{{ aviso.id }}"
                 data-descripcion="{{ aviso.desc }}"
                 data-email="{{ aviso.email }}"
                 data-celular="{{ aviso.celular }}" 
@@ -56,13 +57,14 @@
             <div id="modal-details"></div>
         </div>
     </div>
-    <div id="image-modal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span id="close-image-modal" class="close-btn">&times;</span>
+    
+    </div>
+    <div id="image-modal" class="image-modal" style="display:none;">
             <div class="image-wrapper">
+                 <span id="close-image-modal" class="close-btn">&times;</span>
                 <img id="large-image" src="./imgs" alt="foto de mascota grande">
             </div>
-        </div>
+        
     </div>
     
     <div class="pagination">

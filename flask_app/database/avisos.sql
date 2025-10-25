@@ -37,6 +37,11 @@ INSERT INTO tarea2.aviso_adopcion
 VALUES
 (7, '2025-11-01 14:00:00', 80205, 'Parque Ecuador', 'Camilo Meow', 'camilo.meow@example.com', NULL, 'perro', 2, 5, 'm', '2025-11-29 19:00:00', 'Dos perros de 5 meses vistos en el Parque Ecuador, Concepción.');
 
+INSERT INTO tarea2.aviso_adopcion
+(id, fecha_ingreso, comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion)
+VALUES
+(8, '2025-11-28 14:10:00', 80205, 'Parque Ecuador', 'Camilo Meow', 'camilo.meow@example.com', NULL, 'perro', 2, 5, 'm', '2025-11-29 19:00:00', 'Dos perros de 5 meses vistos en el Parque Ecuador, Concepción.');
+
 --- Insercion de Fotos
 
 INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
@@ -59,8 +64,31 @@ VALUES (6, 'twodogs.JPG', '2perros_5meses', 6);
 
 INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
 VALUES (7, 'twodogs.JPG', '2perros_5meses', 7);
+INSERT INTO foto (id, ruta_archivo, nombre_archivo, aviso_id)
+VALUES (8, 'pomeranian.JPG', '1perro_6meses', 8);
 --- Inserción contactos
 INSERT INTO contactar_por (id, nombre, identificador, aviso_id)
 VALUES (1, 'whatsapp', 'CreamSodaMeow', 6) ;
 INSERT INTO contactar_por (id, nombre, identificador, aviso_id)
 VALUES (2, "otra", 'Ramune Meow', 6);
+
+INSERT INTO contactar_por (id, nombre, identificador, aviso_id)
+VALUES (3, "otra", 'Meowy', 8);
+
+--- Comentario 
+
+INSERT INTO comentario (id, nombre, texto, fecha, aviso_id)
+VALUES (1, "MeowMeow", 'OMG SO CUUUUUUUUTE','2025-11-01 14:00:00' , 6);
+
+INSERT INTO comentario (id, nombre, texto, fecha, aviso_id)
+VALUES (2, "MeowMeow2", 'Hope they find a home soon!!!','2025-11-01 14:12:00' , 6);
+
+INSERT INTO comentario (id, nombre, texto, fecha, aviso_id)
+VALUES (3, "MeowMeow", 'OMG SO CUUUUUUUUTE','2025-11-01 14:00:00' , 8);
+
+INSERT INTO comentario (id, nombre, texto, fecha, aviso_id)
+VALUES (4, "MeowMeow2", 'Hope they find a home soon!!!','2025-11-01 14:12:00' , 8);
+
+INSERT INTO comentario (id, nombre, texto, fecha, aviso_id)
+VALUES (5, "MeowMeow2", "<script> alert(1) </script>",'2025-11-01 14:12:00' , 8);
+
