@@ -57,6 +57,7 @@ class Aviso_Adopcion(Base):
     comuna = relationship("Comuna", back_populates="aviso_adopcion")
     foto = relationship("Foto", back_populates="aviso_adopcion")
     contactar_por = relationship("Contactar_Por", back_populates="aviso_adopcion")
+    comentario = relationship("Comentario", back_populates="aviso_adopcion")
 
 class Foto(Base):
     __tablename__ = "foto"
@@ -68,6 +69,7 @@ class Foto(Base):
 
     aviso_adopcion = relationship("Aviso_Adopcion", back_populates="foto")
 
+
 class Contactar_Por(Base):
     __tablename__ = "contactar_por"
     __table_args__ = {'schema': 'tarea2'}
@@ -77,6 +79,19 @@ class Contactar_Por(Base):
     aviso_id = Column(Integer, ForeignKey('tarea2.aviso_adopcion.id'), nullable=False)
 
     aviso_adopcion = relationship("Aviso_Adopcion", back_populates="contactar_por")
+
+class Comentario(Base):
+    __tablename__ = "comentario"
+    __table_args__ = {'schema': 'tarea2'}
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    nombre = Column(String(80), nullable=False)
+    text = Column(String(300), nullable=False)
+    fecha = Column(DateTime, nullable=False)
+    aviso_id = Column(Integer, ForeignKey('tarea2.aviso_adopcion.id'), nullable=False)
+
+    aviso_adopcion = relationship("Aviso_Adopcion", back_populates="comentario")
+
+    
 
 
 # --- Database Functions ---
