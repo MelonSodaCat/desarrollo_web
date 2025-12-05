@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Bienvenida</title>
+
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/css/new_styles.css}" />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <!-- Content -->
+
+    <div class="avisos">
+        <h3>Últimos Avisos</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha publicación</th>
+              <th>Comuna</th>
+              <th>Sector</th>
+              <th>Cantidad Tipo Edad</th>
+              <th>Foto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${data == null or #lists.isEmpty(data)}">
+              <td colspan="5">No hay avisos</td>
+            </tr>
+            <tr th:each="aviso : ${data}">
+              <!-- Si `fecha_publicacion` es java.util.Date, puedes formatearla con #dates -->
+        
+
+              <td th:text="${#temporals.format(aviso['fecha_publicacion'], 'yyyy-MM-dd HH:mm')}"
+                  th:unless="${aviso['fecha_publicacion'] == null}">--</td>
+              <td th:text="${aviso['comuna']}"></td>
+              <td th:text="${aviso['sector']}"></td>
+              <td>
+                <span th:text="${aviso['cantidad']}"></span>
+                <span th:text="${aviso['tipo']}"></span>
+                <span th:text="${aviso['edad']}"></span>
+                <span th:text="${aviso['unidad_medida']}"></span>
+              </td>
+              <td>
+                <img th:if="${aviso['foto_path'] != null}"
+                     th:src="@{'/imgs/' + ${aviso['foto_path']}}"
+                     th:alt="${aviso['foto_nombre']}"
+                     style="max-height:80px; max-width:120px;" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- After your table -->
+     <div th:replace="~{fragments/pagination :: pagination(currentPage=${currentPage}, totalPages=${totalPages}, baseUrl='/')}"></div>
+
+    </body>
+
+    <!-- Scripts -->
+
+</html>

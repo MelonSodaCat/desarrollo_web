@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <head>
+
+    <title>Bienvenida</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/confesiones.css}" />
+    <link rel="stylesheet" th:href="@{/css/modal.css}" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/css/new_styles.css}" />
+  </head>
+   <body>  
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+     <!-- List -->
+      <div class="avisos">
+    <table>
+     <thead><tr><th>ID</th><th>Fecha</th><th>Mensaje</th></tr></thead>
+    <tbody>
+        <tr th:each="log : ${data}">
+        <td th:text="${log['log_id']}"></td>
+        <td th:text="${#temporals.format(log['fecha'], 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${log['mensaje']}"></td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+    <div th:replace="~{fragments/pagination :: pagination(currentPage=${currentPage}, totalPages=${totalPages}, baseUrl='/mensajes-log')}"></div>
+
+   </body>
+  
+    <!-- Scripts -->
+
+</html>

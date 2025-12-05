@@ -1,0 +1,17 @@
+ <div th:fragment="pagination(currentPage, totalPages, baseUrl)">
+      <div class="pagination">
+        <!-- Previous button -->
+        <a th:if="${currentPage > 0}"
+           th:href="@{${baseUrl}(page=${currentPage - 1})}">Previous</a>
+
+        <!-- Page numbers -->
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+          <a th:if="${i != currentPage}" th:href="@{${baseUrl}(page=${i})}" th:text="${i + 1}"></a>
+          <span th:if="${i == currentPage}" th:text="${i + 1}"></span>
+        </span>
+
+        <!-- Next button -->
+        <a th:if="${currentPage + 1 < totalPages}"
+           th:href="@{${baseUrl}(page=${currentPage + 1})}">Next</a>
+      </div>
+    </div>

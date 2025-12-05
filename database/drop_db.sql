@@ -1,0 +1,2 @@
+-- Active: 1761333108155@@127.0.0.1@3306@tarea2
+DROP DATABASE tarea2 ;
