@@ -1,102 +1,133 @@
-# Tarea 3 - Desarrollo Web
+# Tarea 5 - Examen - Desarrollo Web
 ## Por Antonia G. Calvo
    
 ## Descripción
-Esta tarea incluye la implementación de una aplicaciónn de flask para un sitio de adopciones.
+Esta tarea incluye la implementación de una aplicaciónn en Spring Boot que posee tres principales rutas.
+
+- / : Visualización de los avisos publicados.
+Las siguientes rutas requiren autenticación con las credenciales indicadas en el enunciado.
+- admin-fotos : panel de administración para eliminar fotos con un motivo
+- logs : panel de visualización de últimas eliminaciones de fotos.
+
+La aplicación se encuentra bajo el directorio examen siendo desarrollada en SpringBoot 4.0.0 y Java 25.
+El directorio database se encarga de poblar la base de datos.
 
  ```bash
-flask_app
-├── app.py
-├── database
-│      ├── avisos.sql
-│      ├── create_user.sql
-│      ├── db.py
-│      ├── drop_db.sql
-│      ├── region-comuna.sql
-│      ├── tabla-comentario.sql
-│      └── tarea2.sql
-├── static
-│   ├── css
-│   │   └── new_styles.css
-│   ├── js
-│   │    ├── aviso.js
-│   │    ├── fila_listado.js
-│   │    ├── stats.js
-│   │    └── validaciones.js
-│   └── imgs
-│
-├── templates
-│    ├── add_aviso.html
-│    ├── base.html
-│    ├── baseOtherPages.html
-│    ├── bienvenida.html
-│    ├── estadisticas.html
-│    └── ver_listado.html
-└── utils
-│    └── validations.py
 
+database
+├── avisos.sql
+├── create_user.sql
+├── drop_db.sql
+├── modificaciones-base-datos.sql
+├── region-comuna.sql
+├── tarea2.sql
+examen
+├── .mvn
+├── main
+│      ├── java\examen\prueba\examen
+│      │   ├── config         
+│      │   │    └── WebSecurityConfig.java 
+│      │   ├── controllers
+│      │   │    └── AppController.java 
+│      │   ├── models    
+│      │   └── services
+│      │       └── AppServices.java 
+│      └──  ExamenApplication.java
+├── resources
+│   ├── static
+│   │    ├── css
+│   │    │    └── new_styles.css
+│   │    ├── imgs
+│   │    ├── js
+│   │    │    └── admin_foto.js
+│   ├── templates
+│   │    ├── fragments
+│   │    │      ├── navbar.html
+│   │    │      └── pagination.html
+│   │    ├── admin-fotos.html
+│   │    ├── bienvenida.html
+│   │    ├── login.html
+│   │    └── logs.html
+│   └── application.properties
+│
+└── 
 ```
 
-#### Database
+## Database
 
 De los archivos `.sql` se habla en la siguiente sección más a fondo, son quienes construyen la base de datos.
 
-El archivo db.py se encarga de implementar la lógica con sqlalchemy para realizar consultas e inserciones durante la ejecución de la aplicación.
+## Main
 
-#### CSS
+### Config
+
+Continene la configuración de Spring Security para las rutas resguardadas.
+
+### Controllers
+
+Controlador de la aplicación con las rutas relevantes.
+
+### Models
+
+Modelos de las entidades de la base de datos, la representación de la agrupación necesaria para obtener los datos de la foto y los repositorios necesarios para desplegar la información.
+
+Una excepción son `Tipo` y `UnidadMedida` los cuales son enumeraciones utilizadas en los modelos.
+
+### Services
+
+Servicios de la aplicación a las rutas relevantes.
+
+## Static
+
+### CSS
 Diseño de la aplicación
 
-#### js
-Se mantienen las validaciones de la entrega anterior en `validaciones.js` con algunas de las mejoras del feedback entregado.
+### img
+Ímagenes utilizadas en la app
 
-El archivo `fila_listado.js ` se encarga del modal al clickear una fila.
+### js
+Contiene el código para el modal de motivo en la ruta `t5-admin-fotos` y la validación de ese mismo input.
 
-El archivo `aviso.js` gestiona la actualización de las fechas, las comunas y las redes sociales en el formulario.
 
-El archivo `stats.js` se encarga de la generación de los gráficos por medio de `Highcharts` realizando requerimientos tipo `fetch` para obtener los datos del backend.
+## Templates
 
-#### templates
+En este se encuentra las rutas principales y dos fragmentos para la construcción.
 
-Se encuentran dos archivos que funcionan de base para `bienvenida.html`, `base.html`, y para las otras dos páginas princiaples de esta tarea `add_aviso.html` y `ver_listado.html`, `baseOtherPages.html`. Esta diferencia viene del botón de regreso al final de la página que tienen estos dos últimos. 
+### Fragments
 
-Se agrega `estadisticas.html` en donde se generán gráficos automáticos de las métricas pedidas en el enunciado.
+Tenemos `navbar` que agrupa la barra de navegación hacia las otras rutas y `pagination` que considera la funcionalidad de cambio de página en la vista de los avisos, fotos y logs.
 
-En cuanto a estos, se adaptaron como plantillas de Jinja2 y se habilitó la recolección de datos desde el backend. 
+### Rutas Principales
 
-#### validations.py
+- `admin-fotos`: corresponde al panel de administración para eliminar fotos
+- `login`: corresponde al login para ingresar a las páginas con autenticación requerida.
+- `logs`: corresponde al panel de registro eliminaciones de fotos.
+- `bienvenida`: página principal que muestra los avisos actuales.
 
-Archivo que posee todas las validaciones de parte del backend para el formulario. 
-
-#### app.py
-
-Aplicación principal con las rutas pedidas y manejo de redirecciones.
 
 
 ## Ejecución
 
-Primero descargar los requirements con:
+Primero es necesario poblar la base de datos con los valores de prueba ejecutando los siguientes archivos en database.
 
-```
-pip install -r requirements.txt
-```
-Luego correr los archivos de base de datos en el siguiente orden:
 ```
 - tarea2.sql
 - region-comuna.sql
-- avisos.sql
 - create_user.sql
+- modificaciones-base-datos.sql
+- avisos.sql
 ```
-De los archivos nuevos, ``avisos.sql`` genera 5 avisos en la base de datos, junto con fotos e información de contacto. Por otro lado, ``create_user.sql` genera el usuario en la base de datos.
+
+De los archivos nuevos, ``avisos.sql`` genera 5 avisos en la base de datos, junto con fotos, información de contacto y comentarios. Esto apesar de no utilizarse contacto ni comentarios en esta tarea.
+
+Por otro lado, ``create_user.sql` genera el usuario en la base de datos.
 
 Si se desea eliminar la base de datos, se puede ejecutar ``drop_db.sql``.
 
-Luego ejecute la aplicación de flask con el comando: 
-
-```
-python app.py
-```
-Esta se encuentra en el puerto 5000, con lo que se puede acceder a traves de ``http://127.0.0.1:5000``
+Luego se requiere ejecutar el archivo `ExamenApplication.java` para correr la aplicación la cual se encuentra en `localhost:8080`
 
 ## Decisiones tomadas
-- Se utiliza `Highcharts` para los gráficos.
-- Se utiliza `fetch` para las peticiones al backend.
+
+- La tabla logs parte sin datos de prueba.
+- No se eliminan los avisos, principalmente aún se ven en la ruta principal pero ya no se pueden eliminar en el panel.
+- Se incluyen las fotos para el testeo
